@@ -1,5 +1,9 @@
 package fr.adamaq01.customclientapi.network.packets.login.serverbound;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import fr.adamaq01.customclientapi.api.packets.Packet;
 import fr.adamaq01.customclientapi.utils.PacketBuffer;
 
@@ -16,13 +20,16 @@ public class LoginStartPacket extends Packet {
 	}
 
 	@Override
-	public void write(PacketBuffer out) {
-		out.writeString(name);
+	public void write(DataOutputStream out) {
+		try {
+			PacketBuffer.writeString(name, out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void read(PacketBuffer in) {
-
+	public void read(DataInputStream in) {
 	}
 
 }

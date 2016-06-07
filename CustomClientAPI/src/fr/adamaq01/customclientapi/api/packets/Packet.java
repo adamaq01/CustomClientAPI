@@ -1,11 +1,15 @@
 package fr.adamaq01.customclientapi.api.packets;
 
-import fr.adamaq01.customclientapi.utils.PacketBuffer;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 
 public abstract class Packet {
+	
+	public Packet() {
+	}
+	
+	public abstract void write(DataOutputStream out);
 
-	public abstract void write(PacketBuffer out);
-
-	public abstract void read(PacketBuffer in);
+	public abstract void read(DataInputStream in);
 	
 }

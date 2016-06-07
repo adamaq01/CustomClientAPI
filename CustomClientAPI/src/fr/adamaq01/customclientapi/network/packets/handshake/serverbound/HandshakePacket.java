@@ -1,5 +1,9 @@
 package fr.adamaq01.customclientapi.network.packets.handshake.serverbound;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import fr.adamaq01.customclientapi.api.enums.HandshakeState;
 import fr.adamaq01.customclientapi.api.enums.Version;
 import fr.adamaq01.customclientapi.api.packets.Packet;
@@ -36,16 +40,19 @@ public class HandshakePacket extends Packet {
 	}
 
 	@Override
-	public void write(PacketBuffer out) {
-		out.writeVarIntToBuffer(version.getProtocolVersion());
-		out.writeString(host);
-		out.writeShort(port);
-		out.writeVarIntToBuffer(state.getState());
+	public void write(DataOutputStream out) {
+		try {
+			PacketBuffer.writeVarInt(version.getProtocolVersion(), out);
+			PacketBuffer.writeString(host, out);
+			out.writeShort(port);
+			PacketBuffer.writeVarInt(state.getState(), out);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void read(PacketBuffer in) {
-
+	public void read(DataInputStream in) {
 	}
 
 }
